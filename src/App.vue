@@ -1,16 +1,18 @@
 <template>
   <div id="app">
     <b-container>
-      <h1 class="title mb-3">簡易チャットアプリ</h1>
+      <h1 class="title my-3">簡易チャットアプリ</h1>
       <b-row v-if="user">
         <b-col class="mb-3" cols="12" md="8">
           <chat-logs :messages="messages"></chat-logs>
         </b-col>
         <b-col class="mb-3" cols="12" md="4">
-          <chat-form @logout="logout" :user="user"></chat-form>
+          <chat-form @logout="logout" @sendMessage="sendMessage" :user="user"></chat-form>
         </b-col>
       </b-row>
-      <b-button v-else @click="login" class="login-button" variant="outline-primary">ログイン</b-button>
+      <p v-else class="login-button">
+        <b-button @click="login" variant="outline-primary">ログイン</b-button>
+      </p>
     </b-container>
   </div>
 </template>
@@ -28,33 +30,7 @@ export default {
   data() {
     return {
       user: null,
-      messages: [
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text:
-            "こんばんはああああああああああああああああああああああああああ",
-          createdAt: new Date()
-        },
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text: "こんばんは",
-          createdAt: new Date()
-        },
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text: "こんばんは",
-          createdAt: new Date()
-        }
-      ]
+      messages: []
     };
   },
   methods: {
@@ -64,6 +40,20 @@ export default {
     },
     logout() {
       this.$auth.signOut();
+    },
+    sendMessage(edittingMessage) {
+      const user = this.$auth.currentUser;
+      const data = {
+        userId: user.uid,
+        userName: user.displayName,
+        userPhotoURL: user.photoURL,
+        text: edittingMessage,
+        createdAt: new Date()
+      };
+      this.$db
+        .collection("messages")
+        .add(data)
+        .then(() => {});
     }
   },
   mounted() {
@@ -74,6 +64,17 @@ export default {
         this.user = null;
       }
     });
+    this.$db
+      .collection("messages")
+      .orderBy("createdAt")
+      .onSnapshot(querySnapshot => {
+        this.messages = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          data.id = doc.id;
+          this.messages.push(data);
+        });
+      });
   }
 };
 </script>
