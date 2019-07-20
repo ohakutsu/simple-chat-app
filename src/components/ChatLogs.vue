@@ -15,36 +15,8 @@
 <script>
 export default {
   name: "ChatLogs",
-  data() {
-    return {
-      messages: [
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text:
-            "こんばんはああああああああああああああああああああああああああ",
-          createdAt: new Date()
-        },
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text: "こんばんは",
-          createdAt: new Date()
-        },
-        {
-          userId: "1234",
-          userName: "takuya",
-          userPhotoURL:
-            "https://lh5.googleusercontent.com/-GJQv1cfCfg4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rekxUiRbUeFa9MTRgv9MuVw3_F8QA/photo.jpg",
-          text: "こんばんは",
-          createdAt: new Date()
-        }
-      ]
-    };
+  props: {
+    messages: Array
   }
 };
 </script>

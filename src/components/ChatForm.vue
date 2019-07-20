@@ -1,6 +1,13 @@
 <template>
   <section class="chat-form">
-    <b-form-textarea v-model="edittingMessage" placeholder="メッセージを入力" rows="3"></b-form-textarea>
+    <div class="chat-form__user mb-4">
+      <p class="mb-1">
+        <img class="chat-form__user_img" :src="user.userPhotoURL" />
+        <span class="chat-form__user_name">{{ user.displayName }}</span>
+      </p>
+      <b-button variant="outline-warning" @click="this.$emit('logout')">ログアウト</b-button>
+    </div>
+    <b-form-textarea class="mb-2" v-model="edittingMessage" placeholder="メッセージを入力" rows="4"></b-form-textarea>
     <b-button
       class="chat-form__send-button"
       @click="this.$emit('sendMessage', this.edittingMessage)"
@@ -12,6 +19,9 @@
 <script>
 export default {
   name: "ChatForm",
+  props: {
+    user: Object
+  },
   data() {
     return {
       edittingMessage: ""
@@ -20,8 +30,19 @@ export default {
 };
 </script>
 
-<style scoped>
-.chat-form__send-button {
-  width: 100%;
+<style lang="scss" scoped>
+.chat-form {
+  .chat-form__user {
+    .chat-form__user_img {
+      width: 30px;
+    }
+    .chat-form__user_name {
+      margin-left: 10px;
+    }
+  }
+
+  .chat-form__send-button {
+    width: 100%;
+  }
 }
 </style>
