@@ -7,7 +7,7 @@
           <chat-logs :messages="messages"></chat-logs>
         </b-col>
         <b-col class="mb-3" cols="12" md="4">
-          <chat-form :user="user"></chat-form>
+          <chat-form @logout="logout" :user="user"></chat-form>
         </b-col>
       </b-row>
       <b-button v-else @click="login" class="login-button" variant="outline-primary">ログイン</b-button>
@@ -61,6 +61,9 @@ export default {
     login() {
       let provider = new this.$firebase.auth.GoogleAuthProvider();
       this.$auth.signInWithPopup(provider).then(() => {});
+    },
+    logout() {
+      this.$auth.signOut();
     }
   },
   mounted() {

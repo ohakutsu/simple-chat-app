@@ -5,7 +5,7 @@
         <img class="chat-form__user_img" :src="user.userPhotoURL" />
         <span class="chat-form__user_name">{{ user.displayName }}</span>
       </p>
-      <b-button variant="outline-warning" @click="this.$emit('logout')">ログアウト</b-button>
+      <b-button variant="outline-warning" @click="$emit('logout')">ログアウト</b-button>
     </div>
     <b-form-textarea class="mb-2" v-model="edittingMessage" placeholder="メッセージを入力" rows="4"></b-form-textarea>
     <b-button
