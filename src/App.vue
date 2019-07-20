@@ -56,6 +56,21 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    login() {
+      let provider = new this.$firebase.auth.GoogleAuthProvider();
+      this.$auth.signInWithPopup(provider).then(() => {});
+    }
+  },
+  mounted() {
+    this.$auth.onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
   }
 };
 </script>
