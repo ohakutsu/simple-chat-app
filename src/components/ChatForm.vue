@@ -2,17 +2,13 @@
   <section class="chat-form">
     <div class="chat-form__user mb-4">
       <p class="mb-1">
-        <img class="chat-form__user_img" :src="user.userPhotoURL" />
+        <img class="chat-form__user_img" :src="user.photoURL" />
         <span class="chat-form__user_name">{{ user.displayName }}</span>
       </p>
-      <b-button variant="outline-warning" @click="this.$emit('logout')">ログアウト</b-button>
+      <b-button variant="outline-warning" @click="$emit('logout')">ログアウト</b-button>
     </div>
     <b-form-textarea class="mb-2" v-model="edittingMessage" placeholder="メッセージを入力" rows="4"></b-form-textarea>
-    <b-button
-      class="chat-form__send-button"
-      @click="this.$emit('sendMessage', this.edittingMessage)"
-      variant="outline-primary"
-    >送信</b-button>
+    <b-button class="chat-form__send-button" @click="clickSendButton" variant="outline-primary">送信</b-button>
   </section>
 </template>
 
@@ -26,6 +22,14 @@ export default {
     return {
       edittingMessage: ""
     };
+  },
+  methods: {
+    clickSendButton() {
+      if (this.edittingMessage !== "") {
+        this.$emit("sendMessage", this.edittingMessage);
+        this.edittingMessage = "";
+      }
+    }
   }
 };
 </script>

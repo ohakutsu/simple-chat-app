@@ -25,7 +25,7 @@ export default {
 .chat-logs__items {
   padding: 10px;
   height: 400px;
-  overflow: scroll;
+  overflow: auto;
   border: 1px solid #ced4da;
   border-radius: 5px;
 }
