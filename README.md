@@ -1,29 +1,3 @@
-# simple-chat-app
+# 簡易チャットアプリ
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+令和元年度アイーナ情報システム塾「SPA&サーバレスアプリ開発入門コース」の総合演習時間に作成したものです。
